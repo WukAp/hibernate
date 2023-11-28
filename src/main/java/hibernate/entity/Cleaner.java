@@ -1,8 +1,9 @@
 package hibernate.entity;
 
-import jakarta.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Getter
@@ -12,7 +13,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Cleaner {
+public class Cleaner implements Serializable {
 
     @Id
     @Column(name = "id_cleaner", nullable = false)

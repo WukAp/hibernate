@@ -1,8 +1,10 @@
 package hibernate.entity;
 
-import jakarta.persistence.*;
+
+import javax.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @Getter
@@ -11,7 +13,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Room {
+public class Room implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "room_number", nullable = false)

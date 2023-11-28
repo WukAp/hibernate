@@ -1,8 +1,10 @@
 package hibernate.entity;
 
-import jakarta.persistence.*;
+
+import javax.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;
 
@@ -13,7 +15,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @ToString
 @Table(name = "room_reserve", schema = "public", catalog = "hotel_db")
-public class RoomReserve {
+public class RoomReserve implements Serializable {
 
     @Id
     @Column(name = "room_number", nullable = false)

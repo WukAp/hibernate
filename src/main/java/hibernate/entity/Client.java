@@ -1,8 +1,10 @@
 package hibernate.entity;
 
-import jakarta.persistence.*;
+
+import javax.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @Getter
@@ -11,7 +13,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Client {
+public class Client implements Serializable {
 
     @Id
     @Column(name = "passport", nullable = false)

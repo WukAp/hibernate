@@ -1,8 +1,10 @@
 package hibernate.entity;
 
-import jakarta.persistence.*;
+
+import javax.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @Getter
@@ -11,7 +13,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @ToString
-public class Cleaning {
+public class Cleaning implements Serializable {
 
     @Id
     @Column(name = "week_day", nullable = false, length = -1)
