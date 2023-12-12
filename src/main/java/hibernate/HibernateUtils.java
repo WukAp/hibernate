@@ -29,13 +29,13 @@ public class HibernateUtils {
                 Cleaner.builder().idCleaner(21).name("Саша").secondName("Васильева").patronymic("Александрована").build(),
                 Cleaner.builder().idCleaner(22).name("Саша").secondName("Васильева").patronymic("Александрована").build());
         cleaners.forEach(session::persist);
-        List<Cleaning> cleanings = List.of(
-                new Cleaning("Wed", 4, 15),
-                new Cleaning("Mon", 4, 18),
-                new Cleaning("Sat", 4, 19),
-                new Cleaning("Mon", 5, 20),
-                new Cleaning("Sun", 4, 21));
-        cleanings.forEach(session::persist);
+//        List<Cleaning> cleanings = List.of(
+//                new Cleaning("Wed", 4, 15),
+//                new Cleaning("Mon", 4, 18),
+//                new Cleaning("Sat", 4, 19),
+//                new Cleaning("Mon", 5, 20),
+//                new Cleaning("Sun", 4, 21));
+//        cleanings.forEach(session::persist);
         List<Client> clients = List.of(
                 new Client(2234123456L, "Саша", "Привет", "Викторовна", "Санкт-Петербург"),
                 new Client(2234123457L, "Паша", "Добрый", "Викторовна", "Санкт-Петербург"),
@@ -68,6 +68,7 @@ public class HibernateUtils {
         );
         roomReserves.forEach(session::persist);
     }
+
     public static List clientsByRoom(Session session, int roomNumber) {
         Criteria criteria = session.createCriteria(RoomReserve.class);
 
@@ -96,9 +97,9 @@ public class HibernateUtils {
         int floor = (session.get(Room.class, roomNumber)).getFloor();
 
         criteria = session.createCriteria(Cleaning.class);
-        int idCleaner = ((Cleaning) criteria.add(Restrictions.eq("weekDay", date))
-                .add(Restrictions.eq("floor", floor)).uniqueResult()).getIdCleaner();
-        return session.get(Cleaner.class, idCleaner);
+        Cleaner cleaner = ((Cleaning) criteria.add(Restrictions.eq("weekDay", date))
+                .add(Restrictions.eq("floor", floor)).uniqueResult()).getCleaner();
+        return cleaner;
     }
 
     public static List getEmptyRooms(Session session) {
@@ -116,9 +117,11 @@ public class HibernateUtils {
     }
 
     public static int addNewCleaner(Session session, String name, String secondName, String patronymic) {
-        return  (int)session.save(new Cleaner((int) Math.round(Math.random() * 100000),
+        return (int) session.save(new Cleaner((int) Math.round(Math.random() * 100000),
                 name, secondName, patronymic));
-    }    public static void dismissCleaner(Session session, int idCleaner) {
+    }
+
+    public static void dismissCleaner(Session session, int idCleaner) {
         session.remove(session.get(Cleaner.class, idCleaner));
     }
 
@@ -127,7 +130,7 @@ public class HibernateUtils {
         var cleaningDay = (Cleaning) criteria.add(Restrictions.eq("weekDay", day))
                 .add(Restrictions.eq("floor", floor))
                 .add(Restrictions.eq("idCleaner", oldCleanerId)).uniqueResult();
-        cleaningDay.setIdCleaner(newCleanerId);
+        cleaningDay.getCleaner().setIdCleaner(newCleanerId);
         System.out.println(
 
                 session.merge(cleaningDay));

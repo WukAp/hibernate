@@ -1,6 +1,7 @@
 package hibernate.lab5.controller;
 
 import hibernate.entity.Client;
+import hibernate.entity.Room;
 import hibernate.entity.RoomReserve;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -71,7 +72,30 @@ public class Controller {
         Configuration configuration = new Configuration();
         configuration.configure();
         try (SessionFactory sessionFactory = configuration.buildSessionFactory();Session session = sessionFactory.openSession()) {
-            return session.createQuery("from RoomReserve where roomNumber="+room, RoomReserve.class).list().toString();
+            long passport = session.createQuery("from RoomReserve where checkOutDate=null and roomNumber="+room,
+                    RoomReserve.class).list().get(0).getPassport();
+            return session.createQuery("from Client where passport="+passport, Client.class).list().toString();
+        }
+    }
+    @GetMapping("/RoomInfoUnsafe")
+
+    public String getRoomByRoomNumberUnsafe( String room) {
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        try (SessionFactory sessionFactory = configuration.buildSessionFactory();Session session = sessionFactory.openSession()) {
+            return session.createQuery("from Room where roomNumber="+room, Room.class).list().toString();
+        }
+    }
+    @GetMapping("/RoomInfoUnsafe2")
+
+    public String getRoomByRoomNumberUnsafe2(String room) {
+        if (room.contains("=")) {
+            return null;
+        }
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        try (SessionFactory sessionFactory = configuration.buildSessionFactory(); Session session = sessionFactory.openSession()) {
+            return session.createQuery("from Room where roomNumber=" + room, Room.class).list().toString();
         }
     }
 }

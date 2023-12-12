@@ -18,24 +18,24 @@ public class HibernateRunner {
             //createSelect(session);
 
             // Клиенты, проживающие в заданном номере
-            System.out.println(clientsByRoom(session, 12));
+            //System.out.println(clientsByRoom(session, 12));
 
             // Клиенты, прибывшие из заданного города
-            System.out.println(clientsByCity(session, "Тихвин"));
+            //System.out.println(clientsByCity(session, "Тихвин"));
 
             // Кто убирал номер клиента в заданный день
             System.out.println(cleanerByClientAndDate(session, "Wed", 1234123470));
 
             // Получаем список пустых номеров
-            System.out.println(getEmptyRooms(session));
+            //System.out.println(getEmptyRooms(session));
 
             // Добавляем нового служащего
-            int id =  addNewCleaner(session, "Николай", "Витальевич", "Снег");
-            printAll(session);
+            //int id =  addNewCleaner(session, "Николай", "Витальевич", "Снег");
+            //printAll(session);
 
             // Увольняем служащего
-             dismissCleaner(session, id);
-            printAll(session);
+             //dismissCleaner(session, id);
+            //printAll(session);
 
             //Меняем расписание служащего
             //updateCleanerShed(session, 4, "Sat", 1, 3);

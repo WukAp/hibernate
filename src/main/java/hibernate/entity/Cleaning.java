@@ -2,6 +2,7 @@ package hibernate.entity;
 
 
 import javax.persistence.*;
+
 import lombok.*;
 
 import java.io.Serializable;
@@ -25,8 +26,8 @@ public class Cleaning implements Serializable {
     private Integer floor;
 
 
-    @Basic
-    @Column(name = "id_cleaner", nullable = false)
-    private Integer idCleaner;
+    @ManyToOne
+    @JoinColumn(name = "id_cleaner", nullable = true)
+    private Cleaner cleaner;
 
 }
